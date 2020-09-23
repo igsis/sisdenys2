@@ -38,7 +38,9 @@
          <td>{{$e->instituicao->nome}}</td>
         </tr>
       @empty
-        <p>sem Registro</p>
+        <tr>
+            <td colspan="7"></td>
+        </tr>
       @endforelse
     </tbody>
 </table>

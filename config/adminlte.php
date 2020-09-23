@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 return [
 
@@ -207,42 +207,42 @@ return [
     |
     */
 
-     
+
     'menu' => [
       ['header' => 'account_settings'],
-          
+
       ['text' => 'Usuário',
        'url'  => 'user/create',
        'icon' => 'fas fa-fw fa-user',
       ],
-          
+
       ['text' => 'Tipo de Usuário',
        'url'  => 'tipousuario/',
        'icon' => 'fas fa-users-cog',
        'can' => 'Admin',
       ],
-          
+
       ['text'    => 'Cadastro',
        'icon'    => 'fas fa-fw fa-share',
-       'submenu' => [              
+       'submenu' => [
           ['text' => 'Instituição',
            'url'  => 'instituicao/create',
           ],
           ['text' => 'Unidade',
            'url'  => 'unidade/create',
-          ],              
+          ],
           ['text' => 'Tipo de Chamado',
            'url'  => 'tipochamado/create',
           ],
         ],
         'can' => 'Admin',
       ],
-      
+
       ['header' => 'Movimentos'],
-      
+
       ['text'   => 'Novo Chamado',
         'icon_color' => 'red',
-        'url' => 'chamado/create',        
+        'url' => 'chamado/create',
       ],
       ['text' => 'Meus Chamados',
        'icon_color' => 'blue',
@@ -274,13 +274,16 @@ return [
                 ['text' => 'Usuário Perfil',
                  'url'  => 'user/',
                 ],
+                ['text' => 'Gestão de Usuários',
+                    'route' => 'gestaousuarios.lista',
+                ]
         ],
         'can' => 'Admin',
       ],
-      
-    ],  
 
-    
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Menu Filters

@@ -11,74 +11,86 @@ use App\Service\Helper;
 
 class UsersController extends Controller
 {
-  public function index(){
-    $userList = (new User())->list();
-    $perfis = (new User())->perfis();
+    public function index()
+    {
+        $userList = (new User())->list();
+        $perfis = (new User())->perfis();
 
-    return view('usuario.index',
-      compact('userList', 'perfis'));
-  }
+        return view('usuario.index',
+            compact('userList', 'perfis'));
+    }
 
-  public function create():object{
-    $user = auth()->user();
+    public function create(): object
+    {
+        $user = auth()->user();
 
-    $unidadeList = (new Unidade())->list();
+        $unidadeList = (new Unidade())->list();
 
-    return view('usuario.create',
-      compact('user', 'unidadeList'));
-  }
+        return view('usuario.create',
+            compact('user', 'unidadeList'));
+    }
 
-  public function update(UserValidate $req):object{
-    $request = [
-        "_token" => $req->_token,
-        "name" => strtoupper($req->name),
-        "rf" => strtoupper($req->rf),
-        "email" => $req->email,
-        "emailAlternativo" => $req->emailAlternativo,
-        "password" => $req->password,
-        "unidade_id" => $req->unidade_id
-    ];
+    public function update(UserValidate $req): object
+    {
+        $request = [
+            "_token" => $req->_token,
+            "name" => strtoupper($req->name),
+            "rf" => strtoupper($req->rf),
+            "email" => $req->email,
+            "emailAlternativo" => $req->emailAlternativo,
+            "password" => $req->password,
+            "unidade_id" => $req->unidade_id
+        ];
 
-    $updateUser = (new User())->update_u($request);
+        $updateUser = (new User())->update_u($request);
 
-    if($updateUser)
-      return redirect()->route('user.create')
-      ->with('success', MENSAGEM_SUCESSO);
+        if ($updateUser)
+            return redirect()->route('user.create')
+                ->with('success', MENSAGEM_SUCESSO);
 
         return redirect()->route('user.create')
-        ->with('error', MENSAGEM_ERRO);
-  }
+            ->with('error', MENSAGEM_ERRO);
+    }
 
-  public function atualizaUsuarioComum(Request $req
-  ):object{
+    public function atualizaUsuarioComum(Request $req
+    ): object
+    {
 
-    $this->validarUsuarioComum($req);
+        $this->validarUsuarioComum($req);
 
-    $updateUser = (new User())
-    ->updateUserComum($req->all());
+        $updateUser = (new User())
+            ->updateUserComum($req->all());
 
-    if($updateUser)
-      return redirect()->route('user.create')
-      ->with('success', MENSAGEM_SUCESSO);
+        if ($updateUser)
+            return redirect()->route('user.create')
+                ->with('success', MENSAGEM_SUCESSO);
 
-    return redirect()->route('user.create')
-    ->with('error', MENSAGEM_ERRO);
-  }
+        return redirect()->route('user.create')
+            ->with('error', MENSAGEM_ERRO);
+    }
 
-  private function validarUsuarioComum(Request $req):void{
-     $this->validate($req, [
-      'name' => 'required|min:3',
-      'email' => 'required']);
-  }
+    private function validarUsuarioComum(Request $req): void
+    {
+        $this->validate($req, [
+            'name' => 'required|min:3',
+            'email' => 'required']);
+    }
 
-  public function edit(Request $req){
-    $update = (new User())->updatePerfil($req->all());
+    public function edit(Request $req)
+    {
+        $update = (new User())->updatePerfil($req->all());
 
-    if($update)
-      return redirect()->route('user.index')
-      ->with('success', MENSAGEM_SUCESSO);
+        if ($update)
+            return redirect()->route('user.index')
+                ->with('success', MENSAGEM_SUCESSO);
 
-      return redirect()->route('user.index')
-      ->with('error', MENSAGEM_ERRO);
-  }
+        return redirect()->route('user.index')
+            ->with('error', MENSAGEM_ERRO);
+    }
+
+    public function listaUsuarios()
+    {
+        $usuarios = User::all();
+        return view('usuario.lista',compact('usuarios'));
+    }
 }

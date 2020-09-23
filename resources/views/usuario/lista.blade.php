@@ -34,9 +34,16 @@
                                         <td>{{ $usuario->emailAlternativo }}</td>
                                         <td>{{ $usuario->unidade_id }}</td>
                                         <td>
-                                            <button class="btn btn-primary">Editar</button>
-                                            <button class="btn btn-warning">Resetar Senha</button>
-                                            <button class="btn btn-danger">Desativar</button>
+                                            <div class="d-flex justify-content-center">
+                                                <a class="btn btn-primary mr-2" href="{{ url('/usuario/edit/'.$usuario->id) }}">Editar</a>
+                                                <form action="" method="POST" class="mr-2">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <input type="hidden" value="{{ $usuario->id }}">
+                                                    <button class="btn btn-warning" type="submit">Resetar Senha</button>
+                                                </form>
+                                                <button class="btn btn-danger">Desativar</button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty

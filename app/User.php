@@ -20,7 +20,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email',
+    protected $fillable = ['name', 'rf', 'email', 'emailAlternativo',
     'password', 'unidade_id'];
 
     /**
@@ -54,7 +54,7 @@ class User extends Authenticatable
     public function chamados():object{
         return $this->hasMany(Chamado::class);
     }
-    
+
     public function update_u(array $dados):bool{
       try{
 
@@ -63,13 +63,13 @@ class User extends Authenticatable
         if(is_null($dados['password'])):
           unset($dados['password']);
         else:
-          $user->password = 
+          $user->password =
           Hash::make($dados['password']);
         endif;
 
         $user->name  = $dados['name'];
-        $user->email = $dados['email']; 
-        $user->unidade_id = $dados['unidade_id'];       
+        $user->email = $dados['email'];
+        $user->unidade_id = $dados['unidade_id'];
         $user->save();
 
       }catch(\Exception $e){
@@ -78,9 +78,9 @@ class User extends Authenticatable
       }
       return true;
     }
-    
+
     public function listar():?object{
-     $users = 
+     $users =
      DB::table('users as u')
      ->leftjoin('tipousuarios as t', 't.user_id', 'u.id')
      ->select('u.id', 'u.name', 't.tipo', 'u.unidade_id',
@@ -93,7 +93,7 @@ class User extends Authenticatable
     }
 
     public function listToDestroy():?object{
-     $users = 
+     $users =
      DB::table('users as u')
      ->join('tipousuarios as t', 't.user_id', 'u.id')
      ->select('u.id', 'u.name', 't.tipo', 't.unidade_id',
@@ -105,7 +105,7 @@ class User extends Authenticatable
     }
 
     public function filtroTipoUsuario(string $name):?object{
-     $users = 
+     $users =
      DB::table('users as u')
      ->leftjoin('tipousuarios as t', 't.user_id', 'u.id')
      ->select('u.id', 'u.name', 't.tipo', 't.instituicao_id')
@@ -131,7 +131,7 @@ class User extends Authenticatable
     }
 
     public function list():object{
-      return 
+      return
       $this::query()
       ->select('id', 'name','email', 'perfil')
       ->get();

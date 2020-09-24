@@ -18,5 +18,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::group(['prefix' => 'gestaousuarios','as' => 'gestaousuarios.'],function (){
         Route::get('/list','UsersController@listaUsuarios')->name('lista');
+        Route::get('/edit/{id}','UsersController@editarUsuarios')->name('editar');
     });
 });

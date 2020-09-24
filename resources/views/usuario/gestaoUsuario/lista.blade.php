@@ -32,7 +32,7 @@
                                         <td>{{ $usuario->rf }}</td>
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->emailAlternativo }}</td>
-                                        <td>{{ $usuario->unidade_id }}</td>
+                                        <td>{{ $usuario->unidade->nome }}</td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary mr-2" href="{{ url('/usuario/edit/'.$usuario->id) }}">Editar</a>

@@ -91,6 +91,6 @@ class UsersController extends Controller
     public function listaUsuarios()
     {
         $usuarios = User::all();
-        return view('usuario.lista',compact('usuarios'));
+        return view('usuario.gestaoUsuario.lista',compact('usuarios'));
     }
 }
